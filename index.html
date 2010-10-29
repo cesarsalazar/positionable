@@ -1,0 +1,59 @@
+<html>
+	<head>	
+	<script src="http://code.jquery.com/jquery-1.4.3.js" type="text/javascript"></script>
+	<script src="jquery-ui-1.8.5.custom.min.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" href="styles.css" type="text/css" media="screen" title="no title" charset="utf-8">
+		<script>
+		$(function() {
+			
+			$('#item1').attr('dx', 0).attr('dy', 0);
+			$('#item2').attr('dx', 0.5).attr('dy', 0.5);
+			
+			originalW = $('#parent').width();
+			originalH = $('#parent').height();
+			
+			$('.positionable').draggable({
+				containment: '#parent',
+				stop: function(event, ui){
+					ui = ui.helper;
+					ui.attr( 'dx', round(ui.position().left/($('#parent').width() - ui.width()) , 3) ).attr( 'dy', round(ui.position().top/($('#parent').height() - ui.height()) , 3) );
+				}
+			});
+			
+			$('#parent').draggable();
+			
+			$('#slider').slider({
+				value: 1,
+				min: 0.5,
+				max: 2,
+				step: 0.1,
+				slide: function(event, ui) {
+					$('#parent').width(originalW* ui.value).height(originalH* ui.value);
+					position();
+				}
+			});
+						
+			position();
+				
+		})
+		
+		var position = function(){
+			$.each( $('.positionable'), function(){
+				$(this).css('left', ($('#parent').width()*$(this).attr('dx'))).css('top', ($('#parent').height()*$(this).attr('dy')))
+			})
+		}
+		
+		var round = function(num, dec){
+			res = Math.round(num*Math.pow(10,dec))/Math.pow(10,dec);
+			return res;
+		}
+		</script>		
+	</head>
+	<body>
+		<div id="parent">
+			<div id="item1" class="positionable"></div>
+			<div id="item2" class="positionable"></div>
+		</div>
+		<div id="slider"></div>
+	</body>
+</html>

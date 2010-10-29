@@ -1,0 +1,31 @@
+body{
+	font-family: Helvetica;
+}
+#slider{
+	width: 200px;
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	z-index: 1000;
+}
+#parent {
+	width: 400px;
+	height: 400px;
+	background-color: #EEE;
+	text-align: center;
+	margin: 100px auto;
+	cursor: move;
+	position: relative;
+}
+.positionable {
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	cursor: move;
+}
+#item1{
+	background-color: #00EF00;
+}
+#item2{
+	background-color: #EF0000;
+}
